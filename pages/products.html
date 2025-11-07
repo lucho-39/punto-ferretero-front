@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Punto Ferretero - Productos</title>
+    <link rel="icon" href="/media/logos/punto-ferretero-icon.svg" type="image/x-icon">
+    <link rel="stylesheet" href="/static/styles/style.css">
+    <script src="https://kit.fontawesome.com/ca950fb273.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <header>
+        <nav class="nav-principal">
+            <img src="/media/logos/punto-ferretero-icon.svg" alt="Logo Izquierdo" class="img-logo-left">
+            <img src="/media/logos/lord.svg" alt="Logo Central" class="img-logo-center">
+            <i class="fa-solid fa-cart-shopping"></i>
+        </nav>
+        <nav class="nav-secundaria">
+            <ul>
+                <li><a href="../index.html">Inicio</a></li>
+                <li><a href="products.html">Productos</a></li>
+                <li><a href="#" id="quienes-somos-link">Quiénes Somos</a></li>
+                <li><a href="#" id="contactos-link">Contactos</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div id="quienes-somos-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+                <h2 style="text-align: center;">Quiénes Somos</h2>
+                <p>Somos Punto Ferretero, una compañía dedicada a la distribución de insumos eléctricos, con un enfoque
+                    de calidad e innovación al servicio del cliente.
+                    Nuestro objetivo es ser un aliado estratégico, brindando soluciones a su empresa.
+                    Nuestra misión es facilitar tus proyectos, grandes o pequeños,
+                    proporcionándote todo lo que necesitas con la mejor atención.</p>
+            </div>
+        </div>
+
+        <div id="contactos-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+                <h2 style="text-align: center;">Contactos</h2>
+                <p>Para ampliar cualquier información o coordinar una reunión en la que podamos
+                    detallar cómo nuestros servicios pueden contribuir al éxito de su empresa,
+                    quedamos a su entera disposición.</p>
+                <p>Puedes contactarnos a través de los siguientes medios:</p>
+                <ul>
+                    <li>Teléfono: +54 9 11 1234-5678</li>
+                    <li>Email: info@puntoferretero.com</li>
+                </ul>
+                <p>Síguenos en nuestras redes sociales para estar al tanto de nuestras novedades y ofertas.</p>
+            </div>
+        </div>
+
+        <!-- Sección de búsqueda y filtrado -->
+        <section class="search-container">
+            <input id="search" type="text" placeholder="Buscar productos por nombre, descripción o código...">
+            <div id="dropdown-container">
+                <!-- El dropdown se generará dinámicamente aquí -->
+            </div>
+        </section>
+
+        <!-- Contenedor de productos -->
+        <div id="container">
+            <!-- Los productos se cargarán dinámicamente aquí -->
+            <p>Cargando productos...</p>
+        </div>
+    </main>
+
+    <footer>
+        <a href="#"><i class="fa-brands fa-facebook"></i></a>
+        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+    </footer>
+
+    <script src="/static/js/script.js"></script>
+    <script src="/static/js/products.js"></script>
+</body>
+
+</html>

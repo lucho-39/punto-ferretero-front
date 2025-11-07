@@ -1,0 +1,495 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+:root {
+  --color-primary: #d9d9d9;
+  --color-secondary: #4a8c7a;
+  --color-tertiary: #7ba696;
+  --color-quaternary: #b4d9c4;
+  --color-dark: #0d0d0d;
+}
+
+.bold {
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.italic {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+body {
+  font-family: "AgencyFB";
+  line-height: 1.6;
+  color: var(--color-dark);
+  background-color: var(--color-primary);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.nav-principal {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 2rem;
+  background-color: var(--color-secondary);
+  position: relative; /* Añadido para posicionamiento absoluto del logo central */
+  height: 80px; /* Altura fija para el contenedor */
+}
+
+.nav-principal .img-logo-left {
+  height: 50px; /* Ajusta el tamaño de los logos */
+  width: auto;
+}
+
+.nav-principal .img-logo-center {
+  height: 70px; /* Ajusta el tamaño de los logos */
+  width: auto;
+  position: absolute; /* Posicionamiento absoluto */
+  left: 50%; /* Mitad horizontal */
+  top: 50%; /* Mitad vertical */
+  transform: translate(-50%, -50%); /* Centrado perfecto */
+}
+
+.nav-principal .fa-cart-shopping {
+  font-size: 1.5rem;
+  color: #b4d9c4;
+  cursor: pointer;
+}
+
+.nav-secundaria {
+  background-color: var(--color-tertiary);
+  padding: 0.5rem 0;
+  font-size: 0.85em; /* 1/4 más chica que la principal, ajustado visualmente */
+}
+
+.nav-secundaria ul {
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.nav-secundaria ul li a {
+  color: var(--color-dark);
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  display: block;
+  transition: background-color 0.3s ease;
+}
+
+.nav-secundaria ul li a:hover {
+  background-color: var(--color-quaternary);
+  color: var(--color-dark);
+}
+
+main {
+  flex-grow: 1;
+  background-image: url("/media/fondos/fondoBody2.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: 2rem;
+  min-height: 100vh; /* asegura que el fondo sea visible */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 1rem;
+}
+
+/* Modal Styles */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1000; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgba(0, 0, 0, 0.6); /* Black w/ opacity */
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: var(--color-primary);
+  margin: 10% auto;
+  padding: 30px;
+  border: 1px solid var(--color-tertiary);
+  width: 90%;
+  max-width: 600px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  position: relative;
+  animation: animatetop 0.4s;
+  color: var(--color-dark);
+  border-radius: 8px;
+}
+
+@keyframes animatetop {
+  from {
+    top: -300px;
+    opacity: 0;
+  }
+  to {
+    top: 0;
+    opacity: 1;
+  }
+}
+
+.close-button {
+  color: var(--color-dark);
+  float: right;
+  font-size: 30px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+  color: #000;
+  text-decoration: none;
+}
+
+/* Products Section */
+.products-section {
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.9
+  ); /* Fondo semi-transparente para la sección de productos */
+  padding: 2rem;
+  border-radius: 8px;
+  text-align: center;
+  max-width: 1200px;
+  margin: 2rem auto;
+  color: var(--color-dark);
+}
+
+/* === ESTILOS MEJORADOS PARA PRODUCTOS === */
+
+#container {
+  width: 100%;
+  max-width: 1200px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  padding: 0 1rem;
+  margin: 0 auto;
+  justify-items: center;
+}
+
+/* Tarjeta del producto */
+.producto {
+  background-color: color-mix(
+    in srgb,
+    var(--color-quaternary) 85%,
+    transparent
+  );
+  border-radius: 12px;
+  padding: 1.2rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.9);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  width: 100%;
+  max-width: 300px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.producto:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
+}
+
+/* Imagen del producto */
+.producto img {
+  width: 100%;
+  height: 180px;
+  object-fit: contain;
+  border-radius: 8px;
+  background-color: white;
+  margin-bottom: 0.8rem;
+}
+
+/* Títulos y textos */
+.producto h3 {
+  color: var(--color-secondary);
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.producto h4 {
+  color: var(--color-tertiary);
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.producto h5 {
+  color: var(--color-dark);
+  font-size: 0.9rem;
+  margin-bottom: 0.3rem;
+}
+
+.producto p {
+  font-size: 0.9rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+/* Botones */
+.producto button {
+  border: none;
+  background-color: var(--color-secondary);
+  color: var(--color-primary);
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin: 0.3rem;
+  font-weight: 500;
+}
+
+.producto button:hover {
+  background-color: var(--color-tertiary);
+}
+
+/* Contenedor de botones */
+.producto .botones {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+footer {
+  background-color: var(--color-secondary);
+  color: var(--color-primary);
+  text-align: right;
+  padding: 1rem 0;
+  width: 100%;
+  margin-top: auto; /* Empuja el footer hacia abajo */
+}
+
+footer a {
+  color: var(--color-primary);
+  font-size: 1.5rem;
+  margin: 0 0.8rem;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+footer a:hover {
+  color: var(--color-quaternary);
+}
+
+/* Estilos compartidos para productos y detalles */
+.product-detail-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  margin: 2rem auto;
+  max-width: 1200px;
+}
+
+.product-detail-container .producto-card {
+  background-color: color-mix(
+    in srgb,
+    var(--color-quaternary) 85%,
+    transparent
+  );
+  border-radius: 12px;
+  padding: 1.2rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.9);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  gap: 2rem;
+}
+
+.product-detail-container .producto-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
+}
+
+.product-detail-container .producto-card img {
+  width: 300px;
+  height: 300px;
+  object-fit: contain;
+  border-radius: 8px;
+  background-color: white;
+}
+
+.product-detail-container .detalle-texto {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.product-detail-container h3 {
+  color: var(--color-secondary);
+  font-weight: 700;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.product-detail-container h4 {
+  color: var(--color-tertiary);
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.product-detail-container h5 {
+  color: var(--color-dark);
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.product-detail-container p {
+  font-size: 1rem;
+  color: #333;
+  margin: 1rem 0;
+}
+
+.product-detail-container .botones {
+  display: flex;
+  gap: 1rem;
+  margin-top: auto;
+}
+
+.product-detail-container button {
+  border: none;
+  background-color: var(--color-secondary);
+  color: var(--color-primary);
+  padding: 0.8rem 1.2rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.product-detail-container button:hover {
+  background-color: var(--color-tertiary);
+}
+
+/* Contenedor principal para búsqueda y productos */
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 1rem;
+}
+
+/* Estilos para el contenedor de búsqueda y filtros */
+.search-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto 2rem auto;
+  text-align: center;
+}
+
+/* Estilos compartidos para input y select */
+.search-container input,
+.search-container select {
+  padding: 0.8rem 1.2rem;
+  border: none;
+  border-radius: 12px;
+  background-color: color-mix(
+    in srgb,
+    var(--color-quaternary) 85%,
+    transparent
+  );
+  color: var(--color-dark);
+  font-size: 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  width: 250px;
+}
+
+.search-container input:focus,
+.search-container select:focus {
+  outline: none;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  transform: translateY(-2px);
+}
+
+.search-container input::placeholder {
+  color: var(--color-tertiary);
+}
+
+/* Estilos específicos para el select */
+.search-container select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1em;
+  padding-right: 2.5rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .search-container {
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  .search-container input,
+  .search-container select {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+  .product-detail-container .producto-card {
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+  }
+
+  .product-detail-container .producto-card img {
+    width: 100%;
+    height: 250px;
+    margin-bottom: 1rem;
+  }
+
+  .product-detail-container .detalle-texto {
+    text-align: center;
+  }
+
+  .product-detail-container .botones {
+    justify-content: center;
+  }
+}
