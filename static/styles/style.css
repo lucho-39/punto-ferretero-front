@@ -489,7 +489,7 @@ main {
     text-align: center;
   }
 
-  .product-detail-container .botones {
+  .cart-detail .product-detail-container .botones {
     justify-content: center;
   }
 }

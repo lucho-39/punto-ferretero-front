@@ -32,8 +32,7 @@ function renderProducts(array) {
                     <img src="${imgSrc}" alt="${imgAlt}">
                     <h4>${product.categoria?.name ?? "Sin categoría"}</h4>
                     <h5>Artículo: ${product.art ?? "-"}</h5>
-                    <h5>Código Proveedor: ${product.cod ?? product.codigo ?? "-"}</h5>
-                    <p>${product.desc ?? ""}</p>
+                    <h5>Código Proveedor: ${product.cod ?? product.codigo ?? "-"}</h5>                   
                     <h4>$${product.price ?? "-"}</h4>
                     <div class="botones">
                         <button>${product.rating ?? "⭐"}</button>
@@ -113,7 +112,7 @@ function loadCategoriesAndProducts() {
         })
         .then(categories => {
             // Obtener productos
-            return fetch('https://luciano.pythonanywhere.com/api/productos')
+            return fetch('https://luciano.pythonanywhere.com/api/categorias')
                 .then(response => {
                     if (!response.ok) {
                         throw new Error(`Error HTTP: ${response.status}`);
