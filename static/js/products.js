@@ -30,13 +30,17 @@ function renderProducts(array) {
                 <div class="producto-card">
                     <h3>${product.tit ?? product.title ?? "-"}</h3>
                     <img src="${imgSrc}" alt="${imgAlt}">
-                    <h4>${product.categoria?.name ?? "Sin categoría"}</h4>
+                    <h4>${product.categoria?.name ?? ""}</h4>
                     <h5>Artículo: ${product.art ?? "-"}</h5>
-                    <h5>Código Proveedor: ${product.cod ?? product.codigo ?? "-"}</h5>                   
-                    <h4>$${product.price ?? "-"}</h4>
+                    <h5>Código: ${product.cod ?? product.codigo ?? "-"}</h5>                   
+                    <h4>$${product.price ?? ""}</h4>
+                    <div class="rating-container">
+                        <span class="rating-value">${product.rating ?? "-"}</span>
+                        <span class="rating-star">⭐</span>
+                    </div>
                     <div class="botones">
-                        <button>${product.rating ?? "⭐"}</button>
                         <button class="ver-detalle" data-id="${productoId}"> Ver Detalle  <i class="fa-solid fa-circle-info"></i></button>
+                        <button class="add-to-cart" data-id="${productoId}"> Añadir al Carrito  <i class="fa-solid fa-cart-plus"></i></button>
                     </div>
                 </div> 
             `;
@@ -100,37 +104,44 @@ container.addEventListener("click", (e) => {
     window.location.href = `product.html?id=${encodeURIComponent(id)}`;
 });
 
-// Cargar categorías desde la API
+// Delegación de eventos para botones "Añadir al Carrito"
+container.addEventListener("click", (e) => {
+    const btn = e.target.closest(".add-to-cart");
+    if (!btn) return;
+    const id = btn.dataset.id;
+    if (!id) {
+        console.warn("ID de producto no disponible para añadir al carrito");
+        return;
+    }
+});
+
 function loadCategoriesAndProducts() {
-    // Obtener categorías
-    fetch('https://luciano.pythonanywhere.com/api/categorias')
-        .then(response => {
+    // Obtener categorías y productos           
+    return Promise.all([
+        fetch('https://luciano.pythonanywhere.com/api/categorias').then(response => {
             if (!response.ok) {
-                throw new Error(`Error HTTP: ${response.status}`);
+                throw new Error(`Error HTTP en categorías: ${response.status}`);
+            }
+            return response.json();
+        }),
+        fetch('https://luciano.pythonanywhere.com/api/productos').then(response => {
+            if (!response.ok) {
+                throw new Error(`Error HTTP en productos: ${response.status}`);
             }
             return response.json();
         })
-        .then(categories => {
-            // Obtener productos
-            return fetch('https://luciano.pythonanywhere.com/api/categorias')
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`Error HTTP: ${response.status}`);
-                    }
-                    return response.json();
-                })
-                .then(products => {
-                    // Renderizar productos y crear dropdown
-                    renderProducts(products);
-                    createCategoryDropdown(categories, products);
+    ])
+        .then(([categories, products]) => {
+            // Renderizar productos y crear dropdown
+            renderProducts(products);
+            createCategoryDropdown(categories, products);
 
-                    // Agregar evento de búsqueda
-                    searchInput.addEventListener("input", () => {
-                        const selectedCategoryId = document.getElementById("categoryDropdown").value;
-                        const searchTerm = searchInput.value.toLowerCase();
-                        filterProducts(products, selectedCategoryId, searchTerm);
-                    });
-                });
+            // Agregar evento de búsqueda
+            searchInput.addEventListener("input", () => {
+                const selectedCategoryId = document.getElementById("categoryDropdown")?.value ?? "all";
+                const searchTerm = searchInput.value.toLowerCase();
+                filterProducts(products, selectedCategoryId, searchTerm);
+            });
         })
         .catch(error => {
             console.error("Error al obtener datos:", error);
@@ -138,6 +149,7 @@ function loadCategoriesAndProducts() {
             dropdownContainer.innerHTML = `<p>Error al cargar las categorías.</p>`;
         });
 }
+
 
 // Iniciar carga de datos cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', loadCategoriesAndProducts);

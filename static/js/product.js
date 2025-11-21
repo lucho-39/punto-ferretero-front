@@ -25,12 +25,15 @@ function displayProductDetails(product) {
                    <h3>${product.tit ?? product.title ?? "-"}</h3>       
                    <h4>${product.categoria?.name ?? "Sin categoría"}</h4>
                    <h5>Artículo: ${product.art ?? "-"}</h5>
-                   <h5>Código Proveedor: ${product.cod ?? product.codigo ?? "-"}</h5>
+                   <h5>Código: ${product.cod ?? product.codigo ?? "-"}</h5>
                    <p>${product.desc ?? product.descripcion ?? ""}</p>
                    <h4>$${product.price ?? product.precio ?? "-"}</h4>
                </div>
                <div class="botones">
-                   <button>${product.rating ?? "⭐"}</button>
+                   <div class="rating-container">
+                       <span class="rating-value">${product.rating ?? "-"}</span>
+                       <span class="rating-star">⭐</span>
+                   </div>
                    <button id="addCartBtn" data-id="${idValue}">
                        Agregar al Carrito <i class="fa-solid fa-cart-shopping"></i>
                    </button>
