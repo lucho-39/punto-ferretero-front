@@ -52,5 +52,16 @@ document.addEventListener('DOMContentLoaded', () => {
             contactosModal.style.display = 'none';
         }
     });
+
+    // Lógica de navegación del carrito
+    const cartIcon = document.getElementById("cart");
+    if (cartIcon) {
+        cartIcon.addEventListener("click", (e) => {
+            // Prevenir la navegación si el clic es en el span del contador
+            if (e.target.tagName !== 'SPAN') {
+                window.location.href = "/pages/cart.html";
+            }
+        });
+    }
 });
 

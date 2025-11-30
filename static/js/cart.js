@@ -1,3 +1,4 @@
+// Variables globales (solo se declaran una vez)
 const cartDetail = document.getElementById("cartDetail");
 const cartTotalContainer = document.getElementById("cartTotalContainer");
 
@@ -8,7 +9,6 @@ const CART_KEY = "cart";
 function safeParse(raw) {
     try {
         const parsed = raw ? JSON.parse(raw) : [];
-        // Aseguramos que el carrito sea un objeto con IDs y cantidades, o un array vacío si falla
         return Array.isArray(parsed) ? parsed : [];
     } catch {
         return [];
@@ -32,7 +32,7 @@ function updateCartBadge() {
     if (!cartEl) return;
     const count = getCartIds().length;
     // Asumiendo que el badge es un span dentro del icono
-    cartEl.innerHTML = `<i class="fa-solid fa-cart-shopping"></i><span>${count > 0 ? count : ''}</span>`;
+    cartEl.innerHTML = `<span>${count > 0 ? count : ''}</span>`;
 }
 
 // --- Funciones de Renderizado ---
@@ -134,45 +134,47 @@ async function renderCart() {
 // --- Manejo de Eventos ---
 
 // Delegación de eventos para botones de cantidad y eliminar
-cartDetail.addEventListener("click", (e) => {
-    const btn = e.target.closest(".remove-btn");
-    if (btn) {
-        const id = btn.dataset.id;
-        if (id) {
-            // Eliminar todas las instancias del producto
-            let currentCart = getCartIds();
-            currentCart = currentCart.filter(itemId => itemId !== id);
-            saveCart(currentCart);
-            renderCart(); // Volver a renderizar el carrito
-        }
-        return;
-    }
-
-    const quantityBtn = e.target.closest(".quantity-btn");
-    if (quantityBtn) {
-        const id = quantityBtn.dataset.id;
-        const action = quantityBtn.dataset.action;
-        if (id) {
-            let currentCart = getCartIds();
-            if (action === "increase") {
-                currentCart.push(id);
-            } else if (action === "decrease") {
-                // Encontrar la primera instancia del ID y eliminarla
-                const index = currentCart.indexOf(id);
-                if (index > -1) {
-                    currentCart.splice(index, 1);
-                }
+if (cartDetail) {
+    cartDetail.addEventListener("click", (e) => {
+        const btn = e.target.closest(".remove-btn");
+        if (btn) {
+            const id = btn.dataset.id;
+            if (id) {
+                // Eliminar todas las instancias del producto
+                let currentCart = getCartIds();
+                currentCart = currentCart.filter(itemId => itemId !== id);
+                saveCart(currentCart);
+                renderCart(); // Volver a renderizar el carrito
             }
-            saveCart(currentCart);
-            renderCart(); // Volver a renderizar el carrito
+            return;
         }
-    }
-});
+
+        const quantityBtn = e.target.closest(".quantity-btn");
+        if (quantityBtn) {
+            const id = quantityBtn.dataset.id;
+            const action = quantityBtn.dataset.action;
+            if (id) {
+                let currentCart = getCartIds();
+                if (action === "increase") {
+                    currentCart.push(id);
+                } else if (action === "decrease") {
+                    // Encontrar la primera instancia del ID y eliminarla
+                    const index = currentCart.indexOf(id);
+                    if (index > -1) {
+                        currentCart.splice(index, 1);
+                    }
+                }
+                saveCart(currentCart);
+                renderCart(); // Volver a renderizar el carrito
+            }
+        }
+    });
+}
 
 // Inicializar la vista del carrito al cargar la página
 document.addEventListener('DOMContentLoaded', () => {
     updateCartBadge();
-    if (cartDetail) {
+    if (cartDetail && cartTotalContainer) {
         renderCart();
     }
 });
@@ -181,5 +183,10 @@ document.addEventListener('DOMContentLoaded', () => {
 window.cartAPI = {
     getCartIds,
     saveCart,
-    updateCartBadge
+    updateCartBadge,
+    addToCart: (id) => {
+        const cart = getCartIds();
+        cart.push(id);
+        saveCart(cart);
+    }
 };

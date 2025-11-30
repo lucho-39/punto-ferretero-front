@@ -113,6 +113,14 @@ container.addEventListener("click", (e) => {
         console.warn("ID de producto no disponible para añadir al carrito");
         return;
     }
+
+    // Usar la función expuesta por cart.js
+    if (window.cartAPI && window.cartAPI.addToCart) {
+        window.cartAPI.addToCart(id);
+        alert("Producto añadido al carrito!");
+    } else {
+        console.error("cartAPI no está disponible. Asegúrate de que cart.js se cargue antes.");
+    }
 });
 
 function loadCategoriesAndProducts() {
